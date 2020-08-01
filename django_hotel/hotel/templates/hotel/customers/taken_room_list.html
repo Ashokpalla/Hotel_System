@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% include 'hotel/customers/_header.html' with active='taken' %}
+  <div class="card">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Room</th>
+          <th>RoomNumber</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for taken_room in taken_rooms %}
+          <tr>
+            <td>{{ taken_room.room.name }}</td>
+            <td>{{ taken_room.room.roomnumber.get_html_badge }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="3">You haven't completed any room reservations yet.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

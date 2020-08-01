@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">My Rooms</li>
+    </ol>
+  </nav>
+  <h2 class="mb-3">My Rooms</h2>
+  <a href="{% url 'employers:room_add' %}" class="btn btn-primary mb-3" role="button">Add room</a>
+  <div class="card">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Room</th>
+          <th>RoomNumber</th>
+          <th>Taken</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for room in rooms %}
+          <tr>
+            <td class="align-middle"><a href="{% url 'employers:room_change' room.pk %}">{{ room.name }}</a></td>
+            <td class="align-middle">{{ room.roomnumber.get_html_badge }}</td>
+            <td class="align-middle">{{ room.taken_count }}</td>
+            <td class="text-right">
+              <a href="{% url 'employers:room_results' room.pk %}" class="btn btn-primary">View results</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">You haven't created any room yet.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

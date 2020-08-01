@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% include 'hotel/customers/_header.html' with active='new' %}
+  <div class="card">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Room</th>
+          <th>RoomNumber</th>
+          <th>Length</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for room in rooms %}
+          <tr>
+            <td class="align-middle">{{ room.name }}</td>
+            <td class="align-middle">{{ room.roomnumber.get_html_badge }}</td>
+            <td class="text-right">
+              <a href="{% url 'customers:take_room' room.pk %}" class="btn btn-primary">Reserve Your room</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="4">No room matching your interests right now.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
